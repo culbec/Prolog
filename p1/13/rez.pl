@@ -1,0 +1,42 @@
+% cautaElement(L: list, E: element)
+% L - lista de elemente
+% E - element de cautat
+% Model de flux: (i, i)
+cautaElement([E | _], E) :- !.
+cautaElement([_ | T], E) :- cautaElement(T, E).
+
+% multimeReversed(L: list, Col: list, Rez: list)
+% L - lista de numere intregi
+% Col - colectoare
+% R - set(L) reversed
+% Model de flux: (i, o), (i, i)
+
+multimeReversed([], Col, Col) :- !.
+multimeReversed([H | T], Col, Rez) :-
+    \+cautaElement(Col, H),
+    !,
+    multimeReversed(T, [H | Col], Rez).
+multimeReversed([_ | T], Col, Rez) :- multimeReversed(T, Col, Rez).
+
+% multimeReversedMain(L: list, Rez: list)
+% L - lista
+% Rez - set(L) reversed
+% Model de flux: (i, o), (i, i)
+
+multimeReversedMain([], []) :- !.
+multimeReversedMain(L, Rez) :- multimeReversed(L, [], Rez).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,33 @@
+% cautaElement(L: list, E: element)
+% L - lista
+% E - element de cautat
+% Model de flux: (i, i)
+
+cautaElement([], _) :- fail.
+cautaElement([E | _], E) :- !.
+cautaElement([_ | T], E) :- cautaElement(T, E).
+
+% intersectie(M1: list, M2: list, Rez: list)
+% M1 - multime
+% M2 - multime
+% Rez - multime rezultat
+% Model de flux: (i, i, o), (i, i, i)
+
+intersectie([], _, []).
+intersectie([H | T], M2, [H | Rez]) :-
+    cautaElement(M2, H),
+    !,
+    intersectie(T, M2, Rez).
+intersectie([_ | T], M2, Rez) :- intersectie(T, M2, Rez).
+
+% interval(M: integer, N: integer, Rez: list)
+% M - numar intreg
+% N - numar intreg
+% Rez - intervalul [M, N]
+% Model de flux: (i, i, o), (i, o, i), (o, i, i)
+
+interval(M, N, []) :- M > N, !.
+interval(M, N, [M | Rez]) :-
+    MNew is M + 1,
+    interval(MNew, N, Rez).
+

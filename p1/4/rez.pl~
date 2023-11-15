@@ -1,0 +1,30 @@
+% inlocuire(L: list, E: integer, LI: list, Rez: list)
+% L - lista de numere intregi
+% E - elementul de inlocuit
+% LI - lista cu care vom inlocui elementul
+% Rez - lista rezultat
+% Model de flux: (i, i, i, o), (i, i, i, i)
+
+inlocuire([], _, _, []).
+inlocuire([H | T], E, LI, [LI | Rez]) :-
+    H =:= E,
+    !,
+    inlocuire(T, E, LI, Rez).
+inlocuire([H | T], E, LI, [H | Rez]) :- inlocuire(T, E, LI, Rez).
+
+% eliminarePozitie(L: list, I: integer, P: integer, Rez: list)
+% L - lista de numere intregi
+% I - index curent
+% P - pozitie de sters
+% Rez - lista rezultat
+% Model de flux: (i, i, i, o), (i, i, i, i)
+
+eliminarePozitie([], _, _, []).
+eliminarePozitie([_ | T], I, P, Rez) :-
+    I =:= P,
+    !,
+    INew is I + 1,
+    eliminarePozitie(T, INew, P, Rez).
+eliminarePozitie([H | T], I, P, [H | Rez]) :-
+    INew is I + 1,
+    eliminarePozitie(T, INew, P, Rez).

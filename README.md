@@ -1,0 +1,1 @@
+Prolog exercises in SWI-Prolog.

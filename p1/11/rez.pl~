@@ -1,0 +1,21 @@
+% vale(L: list, Sens: integer)
+% L - lista de numere intregi
+% Sens - sensul cresterii:
+% * 0 - coborare;
+% * 1 - crestere;
+% Model de flux: (i)
+
+vale([_], 1).
+vale([H1, H2 | T], 0) :-
+    H1 < H2,
+    vale([H2 | T], 1),
+    !.
+vale([H1, H2 | T], 1) :-
+    H1 < H2,
+    vale([H2 | T], 1),
+    !.
+vale([H1, H2 | T], 0) :-
+    H1 > H2,
+    vale([H2 | T], 0),
+    !.
+

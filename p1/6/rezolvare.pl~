@@ -1,0 +1,37 @@
+% Aparitii(E: integer, L: E*, A: integer)
+% E - elementul caruia ii calculam aparitiile
+% L - lista cu elemente de tipul lui E
+% A - variabila in care calculam aparitiile lui E in L
+% Model de flux: (i, i, o) - determinist sau (i, i, i) - determinist,
+% pentru teste
+
+aparitii(_, [], 0).
+aparitii(E, [H | T], A) :-
+    E == H,
+    ANew is A + 1,
+    aparitii(E, T, ANew).
+aparitii(E, [_ | T], A) :- aparitii(E, T, A).
+
+% eliminaRepetate(L: list, LCopie: list, Rez: list)
+% L - lista de elemente
+% LCopie - copia lui L pentru a gasi elementele care se repeta
+% Rez - lista cu elementele ce nu se repeta din L
+% Model de flux: (i, o) - determinist, (i, i) - determinist, pentru
+% teste
+
+eliminaRepetate([], _, []).
+eliminaRepetate([H | T], LCopie, [H | Rez]) :-
+    aparitii(H, LCopie, AH),
+    AH = 1,
+    eliminaRepetate(T, LCopie, Rez).
+eliminaRepetate([H | T], LCopie, Rez) :-
+    aparitii(H, LCopie, AH),
+    AH \= 1,
+    eliminaRepetate(T, LCopie, Rez).
+
+% eliminaRepetateMain(L: list, R: list)
+% - wrapper pentru functia principala
+% L - lista de elemente
+% R - lista rezultat
+% Model de flux: (i)
+eliminaRepetateMain([H | T], Rez) :- eliminaRepetate([H | T], [H | T], Rez).

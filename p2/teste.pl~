@@ -1,0 +1,19 @@
+test_adaugaElement :-
+    adaugaElementMain([], 7, Rez1),
+    write('Test 1: '), write(Rez1), nl,
+
+    adaugaElementMain([1, 3, 6, 4, 3], 7, Rez2),
+    write('Test 2: '), write(Rez2), nl,
+
+    adaugaElementMain([1, 3, 6, 4, 3, 11, 12], 42, Rez3),
+    write('Test 3: '), write(Rez3), nl,
+
+    adaugaElementMain([1], 57, Rez4),
+    write('Test 4: '), write(Rez4), nl,
+
+    adaugaElementMain([1, 6, 3, 1, 3, 5, -1, 10, 11, 12, 11, 20, 21, 13, 15, 18, 221], 13, Rez5),
+    write('Test 5: '), write(Rez5), nl,
+
+    adaugaElementMain([15, 18, 21, 33, 14, 15, 15, 19, 221, 300, -1, -1000, 3, 5, 1, 6, 1, 3, 4, 1, 3, 1, 4, 9, 11, 13, 14, 15, 1, 6, 13, 3, 4, 9, 99, 11, 3, 14, 14, 5, 1], 1337, Rez6),
+    write('Test 6: '), write(Rez6), nl,
+    fail.

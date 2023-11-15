@@ -1,0 +1,47 @@
+% eliminareAtom(L: list, E: atom, Rez: list)
+% L - lista de atomi
+% E - atom de sters
+% Rez - lista rezultat
+% Model de flux: (i, i, o), (i, i, i)
+
+eliminareAtom([], _, []).
+eliminareAtom([E | T], E, Rez) :- eliminareAtom(T, E, Rez), !.
+eliminareAtom([H | T], E, [H | Rez]) :- eliminareAtom(T, E, Rez).
+
+% aparitii(L: list, E: integer, Apar: integer)
+% L - lista de numere intregi
+% E - element pentru care numaram aparitiile
+% Apar - numarul de aparitii ale lui E in L
+% Model de flux: (i, i, o), (i, i, i)
+
+aparitii([], _, 0).
+aparitii([E | T], E, Apar) :-
+    aparitii(T, E, AparNew),
+    Apar is AparNew + 1,
+    !.
+aparitii([_ | T], E, Apar) :- aparitii(T, E, Apar).
+
+% eliminaElement(L: list, E: integer, Rez: list)
+% L - lista de numere intregi
+% E - elementul de eliminat
+% Rez - lista rezultat
+% Model de flux: (i, i, o), (i, i, i)
+
+eliminaElement([], _, []).
+eliminaElement([E | T], E, Rez) :-
+    eliminaElement(T, E, Rez)
+    !.
+eliminaElement([H | T], E, [H | Rez]) :- eliminaElement(T, E, Rez).
+
+% atomN(L: list, Rez: list)
+% L - lista de numere intregi
+% Rez - lista rezultat
+% Model de flux: (i, i, o), (i, i, i)
+
+atomN([], []).
+atomN([H | T], [[H, Apar] | Rez]) :-
+    aparitii([H | T], H, Apar),
+    eliminaElement(T, H, Update),
+    atomN(Update, Rez).
+
+
