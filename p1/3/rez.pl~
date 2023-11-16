@@ -47,12 +47,12 @@ listToSetMain(L, Rez) :- listToSet(L, [], Rez).
 % Model de flux: (i, i, o, o), (i, i, i, i)
 
 extrage([], _,[], 0).
-extrage([H | T], Paritate, [H | Rez], NrPare) :-
-    H mod 2 =:= Paritate,
+extrage([H | T], P, [H | Rez], NrPare) :-
+    H mod 2 =:= P,
     !,
-    extrage(T, Paritate, Rez, NrPareNew),
+    extrage(T, P, Rez, NrPareNew),
     NrPare is NrPareNew + 1.
-extrage([_ | T], Paritate, Rez, NrPare) :- extrage(T, Paritate, Rez, NrPare).
+extrage([_ | T], P, Rez, NrPare) :- extrage(T, P, Rez, NrPare).
 
 % separareParitate(L: list, Rez: list, NrPare: integer, NrImpare:
 % integer)
