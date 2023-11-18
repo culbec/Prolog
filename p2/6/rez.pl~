@@ -1,0 +1,47 @@
+% adaugaSfarsit(L: list, E: elem, Rez: list)
+% L - lista
+% E - elementul de adaugat
+% Rez - L (+) E
+% Model de flux: (i, i, o), (i, i, i)
+
+adaugaSfarsit([], E, [E]) :- !.
+adaugaSfarsit([H | T], E, [H | Rez]) :-
+    adaugaSfarsit(T, E, Rez).
+
+% adaugaSublista(L: list, LElems: list, Rez: list)
+% L - lista
+% LElems - lista cu element de adaugat
+% Rez - lista rezultat
+% Model de flux: (i, i, o), (i, i, i)
+
+adaugaSublista(L, [], L) :- !.
+adaugaSublista(L, [H | T], Rez) :-
+    adaugaSfarsit(L, H, LNew),
+    adaugaSublista(LNew, T, Rez).
+
+% inlocuireElement(L: list, E: elem, LElems: list, Col: list Rez: list)
+% L - lista de element
+% E - elementul de inlocuit
+% LElems - lista cu care se inlocuieste elementul
+% Col - colectoare
+% Rez - lista rezultat
+
+inlocuireElement([], _, _, Col, Col) :- !.
+inlocuireElement([H | T], E, LElems, Col, Rez) :-
+    H =:= E,
+    !,
+    adaugaSublista(Col, LElems, ColNew),
+    inlocuireElement(T, E, LElems, ColNew, Rez).
+inlocuireElement([H | T], E, LElems, Col, Rez) :-
+    adaugaSfarsit(Col, H, ColNew),
+    inlocuireElement(T, E, LElems, ColNew, Rez).
+
+% inlocuireElementMain(L: list, E: elem, LElems: list, Rez: list)
+% L - lista
+% E - element de inlocuit
+% LElems - lista de elemente cu care se va inlocui E
+% Rez: lista rezultat
+
+inlocuireElementMain([], _, _, []) :- !.
+inlocuireElementMain(L, E, LElems, Rez) :-
+    inlocuireElement(L, E, LElems, [], Rez).

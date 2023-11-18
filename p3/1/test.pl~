@@ -1,0 +1,38 @@
+test1 :-
+    L = [
+        [1, 1], [2, 2], [3, 3], [4, 4], [5, 11]
+    ],
+    coliniareCollect(L, Rez),
+    write("Test 1: "), write(Rez), nl.
+
+
+test2 :-
+    L = [
+        [1, 1], [2, 2], [3, 3], [4, 4], [5, 5],
+        [-1, 6], [-1, 4], [1, 4], [11, 9], [12, 11]
+    ],
+    coliniareCollect(L, Rez),
+    write("Test 2: "), write(Rez), nl.
+
+
+
+test3 :-
+    L = [[1, 1]],
+    coliniareCollect(L, Rez),
+    write("Test 3: "), write(Rez), nl.
+
+
+test4 :-
+    L = [],
+    coliniareCollect(L, Rez),
+    write("Test 4: "), write(Rez), nl.
+
+
+test5 :-
+    L = [
+        [1, 1], [2, 4], [39, 11], [-50, 110], [-6, 5],
+        [26, 6], [-10, 5], [91, 60], [10, 11], [11, 11]
+    ],
+    coliniareCollect(L, Rez),
+    write("Test 5: "), write(Rez), nl.
+

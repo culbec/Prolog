@@ -1,0 +1,90 @@
+% inverseaza(L: list, Invers: list, Rez: list)
+% L - lista de elemente
+% Invers - lista inversata
+% Rez - lista rezultat (lista inversata)
+% Model de flux: (i, i, o), (i, i, i)
+
+inverseaza([], Invers, Invers).
+inverseaza([H | T], Invers, Rez) :-
+    inverseaza(T, [H | Invers], Rez).
+
+% calculeazaSuma(A: integer, B: integer, C, S: integer, Carry:
+% integer)
+% A - numar intreg
+% B - numar intreg
+% C - transport curent
+% S - suma rezultat
+% Carry - transport
+% Model de flux: (i, i, o, o), (i, i, i, i)
+
+calculeazaSuma(A, B, C, S, Carry) :-
+    S is A + B + C,
+    S >= 10,
+    !,
+    Carry is 1.
+calculeazaSuma(A, B, C, S, Carry) :-
+    S is A + B + C,
+    Carry is 0.
+
+% adunaNumereListe(X: list, Y: list, Carry: integer, Rez: list)
+% X - numar in format de lista
+% Y - numar in format de lista
+% Carry - transport
+% Rez - X + Y in format de lista
+% Model de flux: (i, i, i, o), (i, i, i, i)
+
+adunaNumereListe([], [], 0, []) :- !.
+adunaNumereListe([], [], 1, [1]) :- !.
+adunaNumereListe([XH | XT], [], Carry, [Cifra | Rez]) :-
+    calculeazaSuma(XH, Carry, 0, S, CarryNew),
+    Cifra is S mod 10,
+    adunaNumereListe(XT, _, CarryNew, Rez).
+adunaNumereListe([], [YH | YT], Carry, [Cifra | Rez]) :-
+    calculeazaSuma(YH, Carry, 0, S, CarryNew),
+    Cifra is S mod 10,
+    adunaNumereListe(_, YT, CarryNew, Rez).
+adunaNumereListe([XH | XT], [YH | YT], Carry, [Cifra | Rez]) :-
+    calculeazaSuma(XH, YH, Carry, S, CarryNew),
+    Cifra is S mod 10,
+    adunaNumereListe(XT, YT, CarryNew, Rez).
+
+% adunaNumereListeMain(X: list, Y: list, Rez: list)
+% X - numar in forma de lista
+% Y - numar in forma de lista
+% Rez - X + Y in forma de lista
+% Model de flux: (i, i, o), (i, i, i)
+
+adunaNumereListeMain([], [], []) :- !.
+adunaNumereListeMain(X, Y, Rez) :-
+    inverseaza(X, [], XI),
+    inverseaza(Y, [], YI),
+    adunaNumereListe(XI, YI, 0, RezI),
+    inverseaza(RezI, [], Rez),
+    !.
+
+% eterogeneNumere(L: list, Curent: list, Rez: list)
+% L - lista eterogena
+% Curent - lista curenta de adunat
+% Rez - lista rezultat
+% Model de flux: (i, i, o), (i, i, i)
+
+eterogeneNumere([], Curent, Curent) :- !.
+eterogeneNumere([H | T], Curent, Rez) :-
+    is_list(H),
+    !,
+    adunaNumereListeMain(H, Curent, CurentNew),
+    eterogeneNumere(T, CurentNew, Rez).
+eterogeneNumere([_ | T], Curent, Rez) :-
+    eterogeneNumere(T, Curent, Rez).
+
+% eterogeneNumereMain(L: list, Rez: list)
+% L - lista eterogena
+% Rez - numar rezultat
+% Model de flux: (i, o), (i, i)
+
+eterogeneNumereMain([], []) :- !.
+eterogeneNumereMain(L, Rez) :-
+    eterogeneNumere(L, [], Rez).
+
+
+
